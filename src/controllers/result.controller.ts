@@ -9,7 +9,7 @@ export class ResultController {
 
     public saveResult = async (req: Request, res: Response) => {
         const { name, apellido, email, testType, answers, logicScore, totalScore } = req.body;
-        
+
         if ([name, apellido, email, testType, answers, logicScore, totalScore].some(val => val === undefined)) {
             return res.status(400).json({ message: 'Faltan datos requeridos.' });
         }
