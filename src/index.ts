@@ -4,6 +4,8 @@ import { envs } from './config/envs';
 import { Server } from './server';
 import { AppRoutes } from './routes/result.routes';
 
+const port = Number( envs.PORT) || 3000;
+
 
 (async () => {
   main(); 
@@ -18,6 +20,8 @@ async function main() {
     });
 
     //* Arranque del servidor y Routes
-    const server = new Server( { port: envs.PORT, routes: AppRoutes.routes } );
+    const server = new Server( { port , routes: AppRoutes.routes } );
     server.start();
+    //const server = new Server( { port: envs.PORT, routes: AppRoutes.routes } );
+
 }; 
