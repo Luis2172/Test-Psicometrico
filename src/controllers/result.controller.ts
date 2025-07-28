@@ -7,7 +7,7 @@ import { ResultEvaluatorService } from '../uses-case/result-evaluator';
 
 export class ResultController {
 
-    public saveReult = async (req: Request, res: Response) => {
+    public saveResult = async (req: Request, res: Response) => {
         const { name, apellido, email, testType, answers, logicScore, totalScore } = req.body;
         
         if ([name, apellido, email, testType, answers, logicScore, totalScore].some(val => val === undefined)) {

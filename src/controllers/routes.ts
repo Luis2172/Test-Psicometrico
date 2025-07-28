@@ -10,7 +10,7 @@ export class ResultRoutes{
 
         const resultController = new ResultController();
 
-        router.post('/', resultController.saveReult );
+        router.post('/', resultController.saveResult );
         router.get('/', resultController.getReult );
 
         return router;
