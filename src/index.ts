@@ -13,6 +13,8 @@ const port = Number( envs.PORT) || 3000;
 
 async function main() {
 
+    console.log('Inicializando backend')
+
     //* Conexion a MongoDB
     await connectDB.connect({
       mongoUrl: envs.MONGO_URL,
