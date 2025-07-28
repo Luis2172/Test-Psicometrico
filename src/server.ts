@@ -29,5 +29,9 @@ export class Server{
         this.app.listen( this.port , () => {
             console.log(`🚀 Servidor corriendo en http://localhost:${ this.port }`);
           });
+
+        this.app.get('/', (req, res) => {
+            res.send('Servidor funcionando correctamente ✔️');
+            });
     }
 }
