@@ -1,16 +1,14 @@
 import { Request, Response } from 'express';
 import { ResultModel } from '../models/Result.model';
-import { EmailService } from '../presentation/email/email.service';
-import { SendEmailTest } from '../uses-case/send-email-test';
 import { ResultEvaluatorService } from '../uses-case/result-evaluator';
 
 
 export class ResultController {
 
     public saveResult = async (req: Request, res: Response) => {
-        const { name, apellido, email, testType, answers, logicScore, totalScore } = req.body;
+        const { name, apellido, nivel, testType, answers, logicScore, totalScore } = req.body;
 
-        if ([name, apellido, email, testType, answers, logicScore, totalScore].some(val => val === undefined)) {
+        if ([name, apellido, nivel, testType, answers, logicScore, totalScore].some(val => val === undefined)) {
             return res.status(400).json({ message: 'Faltan datos requeridos.' });
         }
         
@@ -21,7 +19,7 @@ export class ResultController {
             const newResult = new ResultModel({
             name,
             apellido,
-            email,
+            nivel,
             testType,
             answers,
             logicScore,
@@ -30,17 +28,6 @@ export class ResultController {
             });
         
             await newResult.save();
-
-            const emailService = new SendEmailTest();
-            emailService.execute({
-                name,
-                apellido,
-                email,
-                testType,
-                totalScore,
-                logicScore,
-                resultadoFinal,
-            });
 
             res.status(201).json({ message: '✅ Resultado guardado correctamente.' });
         } catch (error) {
