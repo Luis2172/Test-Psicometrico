@@ -32,7 +32,7 @@ export class ResultController {
             await newResult.save();
 
             const emailService = new SendEmailTest();
-            emailService.execute({
+            await emailService.execute({
                 name,
                 apellido,
                 email,
