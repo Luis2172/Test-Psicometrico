@@ -9,6 +9,13 @@ const ResultSchema = new Schema({
   apellido: { 
     type: String, required: true 
   },
+  email: {
+    type: String,
+    required: [true, 'El correo es obligatorio'],
+    trim: true,
+    lowercase: true,
+    match: [ /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Correo no válido' ]
+  },
   nivel: {
     type: String, enum: ['Preparatoria', 'Ingeniería'], required: true 
   },
