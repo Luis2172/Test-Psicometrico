@@ -1,45 +1,45 @@
-import nodemailer from 'nodemailer';
-import { envs } from '../../config/envs';
+import { Resend } from 'resend';
 import validator from 'validator';
 
-interface SendEmailOption{
-    to: string | string[],
-    subject: string,
-    htmlBody: string,
-};
+interface SendEmailOption {
+  to: string | string[];
+  subject: string;
+  htmlBody: string;
+}
 
-export class EmailService{
-    private transporter = nodemailer.createTransport({
-        service: envs.MAILER_SERVICE,
-        auth: {
-            user: envs.MAILER_EMAIL,
-            pass: envs.MAILER_SECRET_KEY,
-        }
-    });
+export class EmailService {
+  private resend = new Resend(process.env.RESEND_API_KEY);
 
-    constructor(){
+  constructor() {}
 
+  async sendEmail(options: SendEmailOption): Promise<boolean> {
+    const { to, subject, htmlBody } = options;
+
+    try {
+      // Validación: convertir a array y validar correos
+      const toList = Array.isArray(to) ? to : [to];
+
+      if (!toList.length || toList.some((email) => !validator.isEmail(email))) {
+        throw new Error('Correo no válido');
+      }
+
+      const { data, error } = await this.resend.emails.send({
+        from: 'Resultados Test <onboarding@resend.dev>',
+        to: toList,
+        subject,
+        html: htmlBody,
+      });
+
+      if (error) {
+        console.error('Error al enviar correo (Resend):', error);
+        return false;
+      }
+
+      console.log('Correo enviado (Resend):', data?.id);
+      return true;
+    } catch (error) {
+      console.error('Error al enviar correo:', error);
+      return false;
     }
-
-    async sendEmail(options: SendEmailOption):Promise<boolean>{
-        const { to, subject, htmlBody } = options;
-        try {
-
-            if (!to || (typeof to === 'string' && !validator.isEmail(to))) {
-                    throw new Error('Correo no válido');
-                };
-
-            const sentInformation = await this.transporter.sendMail({
-                to: to,
-                subject: subject,
-                html: htmlBody,
-            })
-            console.log('Correo enviado:', sentInformation.response);
-            return true;
-        } catch (error) {
-            console.error('Error al enviar correo:', error);
-            return false;
-        }
-        
-    }
-};
+  }
+}
