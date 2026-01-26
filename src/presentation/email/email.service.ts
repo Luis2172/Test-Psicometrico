@@ -1,5 +1,6 @@
 import { Resend } from 'resend';
 import validator from 'validator';
+import { envs } from '../../config/envs';
 
 interface SendEmailOption {
   to: string | string[];
@@ -24,7 +25,7 @@ export class EmailService {
       }
 
       const { data, error } = await this.resend.emails.send({
-        from: 'Resultados Test <onboarding@resend.dev>',
+        from: `Resultados Test <${envs.EMAIL_FROM}>`,
         to: toList,
         subject,
         html: htmlBody,

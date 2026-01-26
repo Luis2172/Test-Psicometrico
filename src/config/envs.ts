@@ -12,6 +12,7 @@ export const envs = {
     //MAILER_SERVICE: env.get('MAILER_SERVICE').required().asString(),
     //MAILER_EMAIL: env.get('MAILER_EMAIL').required().asEmailString(),
     //MAILER_SECRET_KEY: env.get('MAILER_SECRET_KEY').required().asString(),
+    EMAIL_FROM: env.get('EMAIL_FROM').required().asString(),
     RESEND_API_KEY: env.get('RESEND_API_KEY').required().asString(),
     PROD: env.get('PROD').required().asBool(),
     
