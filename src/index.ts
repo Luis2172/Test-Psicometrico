@@ -24,6 +24,5 @@ async function main() {
     //* Arranque del servidor y Routes
     const server = new Server( { port , routes: AppRoutes.routes } );
     server.start();
-    //const server = new Server( { port: envs.PORT, routes: AppRoutes.routes } );
 
 }; 

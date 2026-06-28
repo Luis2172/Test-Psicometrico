@@ -17,7 +17,7 @@ export class EmailService {
     const { to, subject, htmlBody } = options;
 
     try {
-      // Validación: convertir a array y validar correos
+    
       const toList = Array.isArray(to) ? to : [to];
 
       if (!toList.length || toList.some((email) => !validator.isEmail(email))) {

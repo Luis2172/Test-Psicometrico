@@ -21,7 +21,7 @@ export class Server{
 
         //* Middlewares
         this.app.use(cors());
-        this.app.use(express.json()); // Para procesar JSON en las peticiones
+        this.app.use(express.json());
 
         //* Routes
         this.app.use( this.routes );
